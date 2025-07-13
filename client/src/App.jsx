@@ -21,7 +21,7 @@ import { checkAuth } from "./store/auth-slice";
 import { Skeleton } from "@/components/ui/skeleton";
 import PaypalReturnPage from "./pages/shopping-view/paypal-return";
 import PaymentSuccessPage from "./pages/shopping-view/payment-success";
-import SearchProducts from "./pages/shopping-view/search";
+import SearchProducts from "./pages/shopping-view/Search";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useSelector(
