@@ -2,7 +2,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../../models/User");
 
-//register
 const registerUser = async (req, res) => {
   const { userName, email, password } = req.body;
 
@@ -27,7 +26,6 @@ const registerUser = async (req, res) => {
       message: "Registration successful",
     });
   } catch (e) {
-    console.log(e);
     res.status(500).json({
       success: false,
       message: "Some error occured",
@@ -35,7 +33,6 @@ const registerUser = async (req, res) => {
   }
 };
 
-//login
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -79,15 +76,12 @@ const loginUser = async (req, res) => {
       },
     });
   } catch (e) {
-    console.log(e);
     res.status(500).json({
       success: false,
       message: "Some error occured",
     });
   }
 };
-
-//logout
 
 const logoutUser = (req, res) => {
   res.clearCookie("token").json({
@@ -96,7 +90,6 @@ const logoutUser = (req, res) => {
   });
 };
 
-//auth middleware
 const authMiddleware = async (req, res, next) => {
   const token = req.cookies.token;
   if (!token)

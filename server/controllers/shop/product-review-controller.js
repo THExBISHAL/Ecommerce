@@ -10,7 +10,6 @@ const addProductReview = async (req, res) => {
     const order = await Order.findOne({
       userId,
       "cartItems.productId": productId,
-      // orderStatus: "confirmed" || "delivered",
     });
 
     if (!order) {
@@ -26,7 +25,7 @@ const addProductReview = async (req, res) => {
     });
 
     if (checkExistinfReview) {
-      return res.status(400).json({
+      return res.status(409).json({
         success: false,
         message: "You already reviewed this product!",
       });
@@ -55,7 +54,6 @@ const addProductReview = async (req, res) => {
       data: newReview,
     });
   } catch (e) {
-    console.log(e);
     res.status(500).json({
       success: false,
       message: "Error",
@@ -73,7 +71,6 @@ const getProductReviews = async (req, res) => {
       data: reviews,
     });
   } catch (e) {
-    console.log(e);
     res.status(500).json({
       success: false,
       message: "Error",

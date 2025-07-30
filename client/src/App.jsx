@@ -6,7 +6,6 @@ import AdminLayout from "./components/admin-view/layout";
 import AdminDashboard from "./pages/admin-view/dashboard";
 import AdminProducts from "./pages/admin-view/products";
 import AdminOrders from "./pages/admin-view/orders";
-import AdminFeatures from "./pages/admin-view/features";
 import ShoppingLayout from "./components/shopping-view/layout";
 import NotFound from "./pages/not-found";
 import ShoppingHome from "./pages/shopping-view/home";
@@ -21,7 +20,7 @@ import { checkAuth } from "./store/auth-slice";
 import { Skeleton } from "@/components/ui/skeleton";
 import PaypalReturnPage from "./pages/shopping-view/paypal-return";
 import PaymentSuccessPage from "./pages/shopping-view/payment-success";
-import SearchProducts from "./pages/shopping-view/search";
+import SearchProducts from "./pages/shopping-view/Search";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useSelector(
@@ -34,8 +33,6 @@ function App() {
   }, [dispatch]);
 
   if (isLoading) return <Skeleton className="w-screen bg-black h-screen" />;
-
-  console.log(isLoading, user);
 
   return (
     <div className="flex flex-col overflow-hidden bg-white">
@@ -71,7 +68,6 @@ function App() {
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="products" element={<AdminProducts />} />
           <Route path="orders" element={<AdminOrders />} />
-          <Route path="features" element={<AdminFeatures />} />
         </Route>
         <Route
           path="/shop"

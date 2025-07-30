@@ -12,7 +12,6 @@ const handleImageUpload = async (req, res) => {
       result,
     });
   } catch (error) {
-    console.log(error);
     res.json({
       success: false,
       message: "Error occured",
@@ -20,7 +19,6 @@ const handleImageUpload = async (req, res) => {
   }
 };
 
-//add a new product
 const addProduct = async (req, res) => {
   try {
     const {
@@ -34,8 +32,6 @@ const addProduct = async (req, res) => {
       totalStock,
       averageReview,
     } = req.body;
-
-    console.log(averageReview, "averageReview");
 
     const newlyCreatedProduct = new Product({
       image,
@@ -55,15 +51,12 @@ const addProduct = async (req, res) => {
       data: newlyCreatedProduct,
     });
   } catch (e) {
-    console.log(e);
     res.status(500).json({
       success: false,
       message: "Error occured",
     });
   }
 };
-
-//fetch all products
 
 const fetchAllProducts = async (req, res) => {
   try {
@@ -73,7 +66,6 @@ const fetchAllProducts = async (req, res) => {
       data: listOfProducts,
     });
   } catch (e) {
-    console.log(e);
     res.status(500).json({
       success: false,
       message: "Error occured",
@@ -81,7 +73,6 @@ const fetchAllProducts = async (req, res) => {
   }
 };
 
-//edit a product
 const editProduct = async (req, res) => {
   try {
     const { id } = req.params;
@@ -121,7 +112,6 @@ const editProduct = async (req, res) => {
       data: findProduct,
     });
   } catch (e) {
-    console.log(e);
     res.status(500).json({
       success: false,
       message: "Error occured",
@@ -146,7 +136,6 @@ const deleteProduct = async (req, res) => {
       message: "Product delete successfully",
     });
   } catch (e) {
-    console.log(e);
     res.status(500).json({
       success: false,
       message: "Error occured",

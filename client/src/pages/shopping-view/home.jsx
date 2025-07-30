@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button";
-import bannerOne from "../../assets/banner-1.webp";
-import bannerTwo from "../../assets/banner-2.webp";
-import bannerThree from "../../assets/banner-3.webp";
+import { GiBootPrints } from "react-icons/gi";
+import { GrRestroomWomen } from "react-icons/gr";
+import { CgAdidas } from "react-icons/cg";
+import { SiPuma } from "react-icons/si";
+import { SiZara } from "react-icons/si";
+import { SiNike } from "react-icons/si";
 import {
   Airplay,
   BabyIcon,
@@ -47,17 +50,15 @@ const brandsWithIcon = [
   { id: "zara", label: "Zara", icon: Images },
   { id: "h&m", label: "H&M", icon: Heater },
 ];
+
 function ShoppingHome() {
-  const [currentSlide, setCurrentSlide] = useState(0);
   const { productList, productDetails } = useSelector(
     (state) => state.shopProducts
   );
-  const { featureImageList } = useSelector((state) => state.commonFeature);
-
-  const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
-
   const { user } = useSelector((state) => state.auth);
-
+  const { featureImageList } = useSelector((state) => state.commonFeature);
+  const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -101,7 +102,6 @@ function ShoppingHome() {
     const timer = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % featureImageList.length);
     }, 15000);
-
     return () => clearInterval(timer);
   }, [featureImageList]);
 
@@ -113,8 +113,6 @@ function ShoppingHome() {
       })
     );
   }, [dispatch]);
-
-  console.log(productList, "productList");
 
   useEffect(() => {
     dispatch(getFeatureImages());
@@ -169,13 +167,20 @@ function ShoppingHome() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {categoriesWithIcon.map((categoryItem) => (
               <Card
+                key={categoryItem.id}
                 onClick={() =>
                   handleNavigateToListingPage(categoryItem, "category")
                 }
                 className="cursor-pointer hover:shadow-lg transition-shadow"
               >
                 <CardContent className="flex flex-col items-center justify-center p-6">
-                  <categoryItem.icon className="w-12 h-12 mb-4 text-primary" />
+                  {categoryItem.id === "footwear" ? (
+                    <GiBootPrints className="w-12 h-12 mb-4 text-primary" />
+                  ) : categoryItem.id === "women" ? (
+                    <GrRestroomWomen className="w-12 h-12 mb-4 text-primary" />
+                  ) : (
+                    <categoryItem.icon className="w-12 h-12 mb-4 text-primary" />
+                  )}
                   <span className="font-bold">{categoryItem.label}</span>
                 </CardContent>
               </Card>
@@ -190,11 +195,23 @@ function ShoppingHome() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {brandsWithIcon.map((brandItem) => (
               <Card
+                key={brandItem.id}
                 onClick={() => handleNavigateToListingPage(brandItem, "brand")}
                 className="cursor-pointer hover:shadow-lg transition-shadow"
               >
                 <CardContent className="flex flex-col items-center justify-center p-6">
-                  <brandItem.icon className="w-12 h-12 mb-4 text-primary" />
+                  {brandItem.id === "nike" ? (
+                    <SiNike className="w-12 h-12 mb-4 text-primary" />
+                  ) : brandItem.id === "zara" ? (
+                    <SiZara className="w-12 h-12 mb-4 text-primary" />
+                  ) : brandItem.id === "adidas" ? (
+                    <CgAdidas className="w-12 h-12 mb-4 text-primary" />
+                  ) : brandItem.id === "puma" ? (
+                    <SiPuma className="w-12 h-12 mb-4 text-primary" />
+                  ) : (
+                    <brandItem.icon className="w-12 h-12 mb-4 text-primary" />
+                  )}
+
                   <span className="font-bold">{brandItem.label}</span>
                 </CardContent>
               </Card>
@@ -212,6 +229,7 @@ function ShoppingHome() {
             {productList && productList.length > 0
               ? productList.map((productItem) => (
                   <ShoppingProductTile
+                    key={productItem._id}
                     handleGetProductDetails={handleGetProductDetails}
                     product={productItem}
                     handleAddtoCart={handleAddtoCart}
